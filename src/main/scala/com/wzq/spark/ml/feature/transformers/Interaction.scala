@@ -4,9 +4,6 @@ import org.apache.spark.ml.feature.{Interaction, VectorAssembler}
 import org.apache.spark.{SparkConf, SparkContext}
 import org.apache.spark.sql.SparkSession
 
-/**
-  * 
-  */
 object Interaction {
   def main(args: Array[String]): Unit = {
     val conf = new SparkConf().setAppName("mlib").setMaster("local[2]")

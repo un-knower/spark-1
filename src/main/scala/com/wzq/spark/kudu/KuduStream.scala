@@ -12,10 +12,6 @@ import org.apache.spark.streaming.kafka010.KafkaUtils
 import org.apache.spark.streaming.kafka010.LocationStrategies.PreferConsistent
 import collection.JavaConverters._
 
-/**
-  * Created by wangzhiqun on 2017/8/18.
-  */
-
 case class KuduStream(id:Int,age:Int,name:String)
 object KuduStream {
   def main(args: Array[String]): Unit = {

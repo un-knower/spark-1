@@ -5,10 +5,6 @@ import org.apache.spark.{SparkConf, SparkContext}
 import org.apache.spark.sql.SparkSession
 import org.apache.spark.streaming.{Seconds, StreamingContext}
 
-/**
-  * Created by wangzhiqun on 2017/8/18.
-  */
-
 case class StreamTomysql(id:Int,name:String)
 object StreamTomysql {
   def main(args: Array[String]): Unit = {

@@ -12,10 +12,6 @@ import org.apache.spark.sql.SparkSession
 import org.apache.spark.sql.types.{DoubleType, StructField, StructType}
 
 /**
-  * Created by wangzhiqun on 2017/8/15.
-  */
-
-/**
   * 1.主成分分析
   * 通过正交转换将原始数据变换为一组各维度线性无关的表示，可用于提取数据的主要特征分量，常用于高维数据的降维
   * PCA降维前必须对原始数据（特征向量）进行标准化处理，StandardScaler

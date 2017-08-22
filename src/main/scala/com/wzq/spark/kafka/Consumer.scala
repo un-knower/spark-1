@@ -4,9 +4,6 @@ import java.util.{Collections, HashMap}
 
 import org.apache.kafka.clients.consumer.{ConsumerConfig, KafkaConsumer}
 
-/**
-  * Created by wangzhiqun on 2017/8/18.
-  */
 object Consumer {
   def main(args: Array[String]): Unit = {
     val brokers = "192.168.94.7:9092"

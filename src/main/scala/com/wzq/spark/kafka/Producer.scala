@@ -4,9 +4,6 @@ import java.util.HashMap
 
 import org.apache.kafka.clients.producer.{KafkaProducer, ProducerConfig, ProducerRecord}
 
-/**
-  * Created by wangzhiqun on 2017/8/18.
-  */
 object Producer {
   def main(args: Array[String]): Unit = {
     val brokers="192.168.94.7:9092"

@@ -9,8 +9,6 @@ import org.apache.spark.{SparkConf, SparkContext}
 
 import scala.util.matching.Regex
 
-
-
 case class Accounts_toDestiny(
                      date:String,
                      time:Int,
