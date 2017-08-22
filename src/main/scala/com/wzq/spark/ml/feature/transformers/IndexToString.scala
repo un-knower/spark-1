@@ -30,7 +30,21 @@ object IndexToString {
     val converter = new IndexToString()
       .setInputCol("categoryIndex")
       .setOutputCol("originalCategory")
+      .setLabels(indexer.labels)
     val converted = converter.transform(indexed)
     converted.show()
+
+    /**
+    +---+--------+-------------+----------------+
+| id|category|categoryIndex|originalCategory|
++---+--------+-------------+----------------+
+|  0|       a|          0.0|               a|
+|  1|       b|          2.0|               b|
+|  2|       c|          1.0|               c|
+|  3|       a|          0.0|               a|
+|  4|       a|          0.0|               a|
+|  5|       c|          1.0|               c|
++---+--------+-------------+----------------+
+      */
   }
 }
