@@ -5,10 +5,6 @@ import org.apache.hadoop.mapreduce.lib.input.TextInputFormat
 import org.apache.spark.{SparkConf, SparkContext}
 import org.apache.spark.sql.SparkSession
 
-/**
-  * Created by wangzhiqun on 2017/8/21.
-  */
-
 case class RegexFilter(
                      date:String,
                      time:Int,
