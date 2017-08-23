@@ -1,4 +1,4 @@
-package com.wzq.spark.ml
+package com.wzq.spark.ml.feature.transformers
 
 import com.wzq.spark.utils.Accounts_toDestiny
 import org.apache.spark.ml.Pipeline

@@ -49,10 +49,11 @@ object Decisiontree {
     val evalutor=new MulticlassClassificationEvaluator()
       .setLabelCol("indexedLabel")
       .setPredictionCol("prediction")
-      .setMetricName("accuracy")
+      .setMetricName("accuracy")   //（包括 `"f1"` (default), `"weightedPrecision"`,`"weightedRecall"`, `"accuracy"`)
     val accuracy=evalutor.evaluate(predictions)
     //println("Test Error = " + (1.0 - accuracy))  //Test Error = 0.04166666666666663
 
+    //stages表示PipelineModel的第几个阶段
     val treeModel = model.stages(2).asInstanceOf[DecisionTreeClassificationModel]
     println(treeModel.toDebugString)
 

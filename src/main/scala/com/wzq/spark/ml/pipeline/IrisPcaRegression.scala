@@ -1,15 +1,12 @@
-package com.wzq.spark.ml
+package com.wzq.spark.ml.pipeline
 
-import org.apache.spark.{SparkConf, SparkContext}
 import org.apache.spark.ml.Pipeline
 import org.apache.spark.ml.classification.LogisticRegression
-import org.apache.spark.ml.evaluation.{BinaryClassificationEvaluator, MulticlassClassificationEvaluator}
+import org.apache.spark.ml.evaluation.MulticlassClassificationEvaluator
 import org.apache.spark.ml.feature.{PCA, StringIndexer, VectorAssembler}
-import org.apache.spark.ml.linalg.Vectors
-import org.apache.spark.ml.regression.LinearRegression
 import org.apache.spark.ml.tuning.{CrossValidator, ParamGridBuilder}
 import org.apache.spark.sql.SparkSession
-import org.apache.spark.sql.types.{DoubleType, StructField, StructType}
+import org.apache.spark.{SparkConf, SparkContext}
 
 /**
   * 1.主成分分析
