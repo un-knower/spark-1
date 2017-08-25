@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+
+<configuration>
+    <property>
+        <name>hbase.rootdir</name>
+        <value>hdfs://mystudy05:9000/hbase</value>
+    </property>
+    <property>
+        <name>hbase.cluster.distributed</name>
+        <value>true</value>
+    </property>
+    <property>
+        <name>hbase.zookeeper.quorum</name>
+        <value>192.168.94.7</value>
+    </property>
+    <property>
+        <name>zookeeper.session.timeout</name>
+        <value>1200000</value>
+    </property>
+    <property>
+        <name>hbase.rpc.timeout</name>
+        <value>1200000</value>
+    </property>
+    <property>
+        <name>hbase.zookeeper.property.tickTime</name>
+        <value>6000</value>
+    </property>
+    <property>
+        <name>hbase.client.scanner.timeout.period</name>
+        <value>1200000</value>
+    </property>
+</configuration>

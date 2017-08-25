@@ -1,0 +1,91 @@
+#=========================== Filebeat prospectors =============================
+
+filebeat.prospectors:
+- input_type: log
+  paths:
+    - /opt/apps/filebeat-5.4.3-linux-x86_64/logs/test.log
+    #- c:\programdata\elasticsearch\logs\*
+  encoding: gbk
+
+  json.keys_under_root: true
+  json.message_key: log
+  json.overwrite_keys: true
+
+processors:
+- drop_fields:
+    # @timestamp、type can't drop
+    fields: ["@timestamp", "beat", "event", "log" , "input_type", "offset", "source", "type"]
+
+-
+
+#- decode_json_fields:
+#    fields: ["age", "name"]
+#    process_array: false
+#    max_depth: 1
+#    target:
+#    overwrite_keys: false
+
+#- include_fields:
+    #fields: ["age","name"]
+
+#================================ Outputs =====================================
+
+# Configure what outputs to use when sending the data collected by the beat.
+# Multiple outputs may be used.
+
+#-------------------------- Elasticsearch output ------------------------------
+#output.elasticsearch:
+  # Array of hosts to connect to.
+ # hosts: ["localhost:9200"]
+
+
+  # Optional protocol and basic auth credentials.
+  #protocol: "https"
+  #username: "elastic"
+  #password: "changeme"
+
+#----------------------------- Logstash output --------------------------------
+#output.logstash:
+  # The Logstash hosts
+#  hosts: ["192.168.94.2:5044,192.168.94.3:5044,192.168.94.4:5044"]
+
+  # Optional SSL. By default is off.
+  # List of root certificates for HTTPS server verifications
+  #ssl.certificate_authorities: ["/etc/pki/root/ca.pem"]
+
+  # Certificate for SSL client authentication
+  #ssl.certificate: "/etc/pki/client/cert.pem"
+
+  # Client Certificate Key
+  #ssl.key: "/etc/pki/client/cert.key"
+
+  #----------------------------- Console output --------------------------------
+  # Console output writes events in JSON format to stdout.
+output.console:
+ pretty: true
+
+  #----------------------------- Kafka output --------------------------------
+  # Kafka output sends the events to Apache Kafka.
+output.kafka:
+  # initial brokers for reading cluster metadata
+  hosts: ["192.168.94.6:9092"]
+
+  topic: '%{[type]}'
+  topic: 'filebeat'
+  partition.round_robin:
+    reachable_only: false
+
+#  required_acks: 1
+#  compression: gzip
+#  max_message_bytes: 1000000
+
+#================================ Logging =====================================
+
+# Sets log level. The default log level is info.
+# Available log levels are: critical, error, warning, info, debug
+#logging.level: debug
+
+# At debug level, you can selectively enable logging only for some components.
+# To enable all selectors use ["*"]. Examples of other selectors are "beat",
+# "publish", "service".
+#logging.selectors: ["*"]
