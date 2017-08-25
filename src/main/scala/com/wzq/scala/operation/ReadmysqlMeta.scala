@@ -5,7 +5,6 @@ import java.sql.DriverManager
 import org.apache.spark.ml.Pipeline
 import org.apache.spark.ml.clustering.KMeans
 import org.apache.spark.ml.feature.{StringIndexer, VectorAssembler}
-import utils.Accounts_toDestiny
 
 import scala.collection.mutable.ArrayBuffer
 
