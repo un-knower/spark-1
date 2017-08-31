@@ -6,6 +6,10 @@ filebeat.prospectors:
     - /opt/apps/filebeat-5.4.3-linux-x86_64/logs/test.log
     #- c:\programdata\elasticsearch\logs\*
   encoding: gbk
+  #自定义日志类型，在logstash中可通过type判断做不同的处理
+  document_type: testlog
+  #source:apache log
+  include_lines: ['ERROR']
 
   json.keys_under_root: true
   json.message_key: log

@@ -1,0 +1,103 @@
+##############filebeat#################
+filebeat.prospectors:
+- paths:
+  /alidata/log/nginx/access/access.log.json
+  input_type: log
+  document_type: nginxacclog
+output.logstash:
+  hosts: ["192.168.94.3:5044"]
+
+
+##############filebeat-logstash-redis##############
+input {
+    beats {
+    port => 5044
+    codec => "json"
+}
+}
+filter {
+    if [type] == "nginxacclog" {
+    geoip {
+        source => "clientip"
+        target => "geoip"
+        database => "/u01/elk/logstash/GeoLiteCity.dat"
+        add_field => [ "[geoip][coordinates]","%{[geoip][longitude]}" ]
+        add_field => [ "[geoip][coordinates]","%{[geoip][latitude]}" ]
+}
+    mutate {
+        convert => [ "[geoip][coordinates]","float" ]
+}
+}
+}
+output{
+    if [type] == "nginxacclog" {
+    redis {
+        data_type => "list"
+        key => "nginxacclog"
+        host => "127.0.0.1"
+        port => "26379"
+        password => "123456"
+        db => "0"
+}
+}
+    if [type] == "messages" {
+    redis {
+        data_type => "list"
+        key => "messages"
+        host => "127.0.0.1"
+        port => "26379"
+        password => "123456"
+        db => "0"
+}
+}
+}
+
+
+############redis-logstash-es#############
+input{
+    redis {
+        host => "10.10.1.2"
+        port => "26379"
+        db => "0"
+        key => "nginxacclog"
+        threads => 300
+        password => "123456"
+        data_type => "list"
+        codec => "json"
+}
+    redis {
+        host => "10.10.1.2"
+        port => "26379"
+        db => "0"
+        key => "messages"
+        password => "123456"
+        threads => 50
+        data_type => "list"
+        codec => "json"
+}
+}
+output {
+    if [type] == "nginxacclog" {
+        elasticsearch {
+            hosts => ["127.0.0.1:9200"]
+            index => "logstash-nginxacclog-%{+YYYY.MM.dd}"
+            manage_template => true
+            flush_size => 50000
+            idle_flush_time => 10
+            workers => 2
+}
+}
+    if [type] == "messages" {
+        elasticsearch {
+            hosts => ["127.0.0.1:9200"]
+            index => "logstash-messages-%{+YYYY.MM.dd}"
+            manage_template => true
+            flush_size => 50000
+            idle_flush_time => 30
+            workers => 1
+}
+}
+}
+
+
+

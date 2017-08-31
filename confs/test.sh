@@ -158,3 +158,22 @@ return ${nu}
 }
 
 # /dev/null 是一个特殊的文件，写入到它的内容都会被丢弃；如果尝试从该文件读取内容，那么什么也读不到
+echo `expr 2 * 9 `
+#等价于
+echo $(expr 2 \* 9)
+
+echo `seq 1 9`  #输出
+
+#[]表示直接求值
+echo $[1+2]  《==》 echo `expr 1 + 2`
+
+i=1
+sum=0
+while [ $i -le 100 ]
+do
+sum=$[$sum+$i]
+let "i++"
+done
+echo $sum
+
+
