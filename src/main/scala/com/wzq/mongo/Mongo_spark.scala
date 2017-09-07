@@ -55,7 +55,13 @@ object Mongo_spark {
       @transient
       val ssc=new StreamingContext(sc, Seconds(1))
       ssc.checkpoint("mongo")
-      val wordcount=ssc.socketTextStream("192.168.94.7",9999).flatMap(_.split(" ")).map(w=>(w,1)).reduceByKey(_+_)
+      val wordcount=ssc.socketTextStream("192.168.94.7",9999).flatMap(_.split(" ")).map(w=>(w,1)).updateStateByKey(
+        (newValues: Seq[Int], runningCount: Option[Int]) => {
+          val currentSum = newValues.sum
+          val previousSum = runningCount.getOrElse(0)
+          Some(currentSum + previousSum)
+        }
+      )
       case class WordCount(word: String, count: Int)
       wordcount.foreachRDD(rdd=>{
         import ss.implicits._
