@@ -63,12 +63,12 @@ object Mongo_spark {
         }
       )
       case class WordCount(word: String, count: Int)
-      wordcount.foreachRDD(rdd=>{
+     /* wordcount.foreachRDD(rdd=>{
         import ss.implicits._
         rdd.map{
           case (a,b)=>WordCount(a,b)
         }.toDF().write.mode("append").mongo(WriteConfig(Map("uri" -> "mongodb://192.168.94.7:27017/mytest.mongostream")))
-      })
+      })*/
       ssc.start()
       ssc.awaitTermination()
     }
