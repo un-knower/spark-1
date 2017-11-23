@@ -7,14 +7,14 @@ import org.apache.spark.ml.feature._
 import org.apache.spark.sql.SparkSession
 
 
-object TextClassify_EN {
+object BayesClassify_EN {
   def main(args: Array[String]): Unit = {
     val ss=SparkSession.builder().appName("bayes").master("local[3]")
       .getOrCreate()
     import ss.implicits._
 
     val bayesDF=ss.read.csv("data/sms_spam.csv")
-        .map(i=>(i(0).toString,i(1).toString.replaceAll("\\d+","")))
+        .map(i=>(i(0).toString,i(1).toString.replaceAll("\\d+"," ")))
         .map((i=>(i._1,i._2.replaceAll("\\pP"," "))))
         .toDF("label","sentence")
 
@@ -91,11 +91,11 @@ object TextClassify_EN {
 
     val Array(trainingData, testData) = bayesDF.randomSplit(Array(0.8, 0.2), seed = 1234L)
 
-    val pipeline = new Pipeline().setStages(Array(tokenizer,indexer,remover,cvModel,idfModel,normalizer,naiveBayes,labelConverter))
+    val pipeline = new Pipeline().setStages(Array(tokenizer,indexer,remover,hashingTF,idfModel,normalizer,naiveBayes,labelConverter))
     val model=pipeline.fit(trainingData)
     val testDF=model.transform(testData)
 
-    testDF.show(20)
+    testDF.show(20,false)
     //将预测结果写入文件
     //testDF.createTempView("t")
     //ss.sql("select sentence,predictedLabel from t where predictedLabel='ham'").write.csv("data/prediction.csv")
@@ -115,11 +115,11 @@ object TextClassify_EN {
 
     /**
       * 准确率
-      * cvModel：0.9674502712477396<-->0.9819168173598554(去除数字和标点符号)
-      * tf-idf：0.918625678119349
+      * cvModel：0.9674502712477396<-->0.976491862567812(去除数字和标点符号)
+      * tf-idf：0.8960216998191681<-->0.9168173598553345(去除数字和标点符号)
        */
     val predictionAccuracy=evaluator.evaluate(testDF)
-    //println("Testing Accuracy is:"+predictionAccuracy)
+    println("Testing Accuracy is:"+predictionAccuracy)
 
   }
 }

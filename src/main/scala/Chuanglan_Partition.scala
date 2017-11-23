@@ -2,14 +2,14 @@ import org.apache.spark.sql.SparkSession
 
 object Chuanglan_Partition {
   def main(args: Array[String]): Unit = {
-    val ss=SparkSession.builder().appName("bayes").master("local[3]")
+    val ss=SparkSession.builder().appName("partition").master("local[3]")
       .getOrCreate()
     import ss.implicits._
-    val fenquDF=ss.read.csv("data/lingke_account_201710.csv")
-      .repartition(5)
+    val fenquDF=ss.read.option("header","true").csv("data/linke_account_20171122_2_ac.csv")
+      .repartition(10)
     fenquDF.write.csv("C:\\Users\\ChuangLan\\Desktop\\分区")
 
-    //println(fenquDF.count())
+   // println(fenquDF.count())
 
   }
 }

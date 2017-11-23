@@ -20,7 +20,7 @@ class LemmatizationZH {
       for(token<-sentence.get(classOf[CoreAnnotations.TokensAnnotation])){
         val lemma=token.get(classOf[LemmaAnnotation])
         //注意在分句后需要加入分隔符，否则默认没有分隔符，看起来结果没有差别
-        out=out+lemma+" "
+        out=out+lemma+"|"
       }
     }
     out
@@ -30,7 +30,7 @@ class LemmatizationZH {
 object LemmatizationZH{
   def main(args: Array[String]): Unit = {
     val lemma=new LemmatizationZH
-    val text="克林顿说，华盛顿将逐步落实对韩国的经济援助。金大中对克林顿的讲话报以掌声：克林顿总统在会谈中重申，他坚定地支持韩国摆脱经济危机"
+    val text="lxw的大数据田地 -- lxw1234.com 专注Hadoop、Spark、Hive等大数据技术博客。 北京优衣库"
     println("原句:"+text)
     println("词干化:"+lemma.stemmed(text))
   }

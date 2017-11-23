@@ -31,8 +31,7 @@ class Lemmatization {
 object Lemmatization{
   def main(args: Array[String]): Unit = {
     val lemma=new Lemmatization
-    val text="jack had been to china there months ago." +
-      " he likes china very much,and he is falling love with this country"
+    val text=" "
     println("原句:"+text)
     println("词干化:"+lemma.stemmed(text))
   }

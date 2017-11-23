@@ -6,7 +6,7 @@ import org.apache.spark.ml.evaluation.MulticlassClassificationEvaluator
 import org.apache.spark.ml.feature._
 import org.apache.spark.sql.SparkSession
 
-object TextClassify_EN_lemma {
+object BayesClassify_EN_lemma {
   def main(args: Array[String]): Unit = {
     val ss=SparkSession.builder().appName("bayes").master("local[3]")
       .getOrCreate()
