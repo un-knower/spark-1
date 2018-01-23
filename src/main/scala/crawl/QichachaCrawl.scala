@@ -28,6 +28,8 @@ class QichachaProcessor extends PageProcessor{
       page.putField("公司名字",page.getHtml.xpath("//*[@id=\"company-top\"]/div/div[2]/div[1]/text()"))
       page.putField("地址",page.getHtml.xpath("//*[@id=\"mapPreview\"]/text()"))
       page.putField("电话",page.getHtml.xpath("//*[@id=\"company-top\"]/div/div[2]/div[2]/span[2]/span/text()"))
+      page.putField("代表人",page.getHtml.xpath("//*[@id=\"Cominfo\"]/table/tbody/tr[2]/td[1]/div/div[2]/a[1]/text()"))
+
     }
   }
 }
@@ -63,7 +65,7 @@ class QichachaPipeline extends Pipeline{
 object QichachaCrawl {
   def main(args: Array[String]): Unit = {
 
-    val keywords=Array("上海创蓝文化传播有限公司","京东","百度")
+/*    val keywords=Array("上海创蓝文化传播有限公司","京东","百度")
     for(i<- 0 to keywords.length-1){
       val urlKey=URLEncoder.encode(keywords(i),"UTF-8")
       Spider.create(new QichachaProcessor)
@@ -71,12 +73,12 @@ object QichachaCrawl {
         .addPipeline(new ConsolePipeline)
         .thread(10)
         .run()
-    }
+    }*/
 
 
     //url地址的编码和解码
-    //println(URLDecoder.decode("%E4%B8%8A%E6%B5%B7%E5%88%9B%E8%93%9D%E6%96%87%E5%8C%96%E4%BC%A0%E6%92%AD%E6%9C%89%E9%99%90%E5%85%AC%E5%8F%B8","UTF-8"))
-    //println(URLEncoder.encode("上海创蓝文化传播有限公司","UTF-8"))
+    println(URLDecoder.decode("%E4%BA%AC%E4%B8%9C","UTF-8"))
+    //println(URLEncoder.encode("%25E4%25BA%25AC%25E4%25B8%259C","UTF-8"))
 
   }
 }

@@ -190,6 +190,24 @@ class Aaa extends Aa{
 
 /*
 定界类型限制，只能是一个特定的类或者它的子类或基类型
-上界：限制一个类型只能是该类型或者它的某个子类型。
-下界：限制一个类只能是该类型或者它扩展的某个基类型
+上界：限制一个类型只能是该类型或者它的某个子类型。操作符'<:'
+下界：限制一个类只能是该类型或者它扩展的某个基类型。操作符'>:'
  */
+class BaseUser(val name:String)
+class BaseUser2( name:String) extends BaseUser(name)
+class BaseUser3( name:String) extends BaseUser2(name)
+
+//传入参数类型只能是BaseUser或者它的子类
+def cust[A<:BaseUser](c:A): Unit ={
+  println("shangkjie")
+}
+cust(new BaseUser2("ssss"))
+
+//
+def on[B>:BaseUser2](o:BaseUser2):B= o match {
+  case a:BaseUser2=>new BaseUser2(o.name)
+  case b:BaseUser3=>new BaseUser3(o.name)
+}
+val base1=on(new BaseUser2("aa"))
+val base2=on(new BaseUser3("bb"))
+

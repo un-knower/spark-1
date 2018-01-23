@@ -1,8 +1,11 @@
+import java.io.{File, FileOutputStream, PrintWriter}
 import java.sql.Date
 import java.text.SimpleDateFormat
 import java.util.Properties
 
 import org.apache.spark.sql.SparkSession
+
+import scala.io.Source
 
 case class TEK_SIGN(
 ID:String,
@@ -49,9 +52,19 @@ object CSVtoOracle {
 
     //sqoop import --hive-import  --connect  jdbc:oracle:thin:@192.168.0.194:1521:smsdb --username smsdb --password chuanglan789
     // --table ACCOUNT_INFO  --hive-database wzq  --hive-table account_info -m 1
-    val df1=ss.read.option("header","true").csv("data/MO_MSG.csv")
-    println(df1.count())
-   // df1.write.mode("append").jdbc(url,"MO_MSG",properties)
+
+/*    val oriCSV=Source.fromFile("data/SMS_AUDIT_TEMPLATE.csv").getLines()
+    val regex="\\{\\d+,\\d+\\}"
+    val writer = new PrintWriter(new File("data/SMS_AUDIT_TEMPLATE_2.csv"))
+    while (oriCSV.hasNext){
+      val line=oriCSV.next().replaceAll(regex,"")
+      writer.println(line)
+    }*/
+
+    val df1=ss.read.option("header","true").csv("data/账号.csv")
+    //println(df1.count())
+    //df1.show(100,false)
+    df1.write.mode("append").jdbc(url,"AAAA",properties)
     //df1.show(50,false)
     //df1.take(10).foreach(println(_))
 /*    ss.read.option("header","true").csv("data/mobile_name.csv").createTempView("p")

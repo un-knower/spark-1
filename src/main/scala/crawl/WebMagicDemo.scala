@@ -20,6 +20,15 @@ import scala.collection.JavaConversions._
   */
 
 /**
+  * 怎么解决网站限制ip问题
+  * 降低抓取频率，时间设置长一些，访问时间采用随机数
+  * 频繁切换UserAgent（模拟浏览器访问）
+  * 多页面数据，随机访问然后抓取数据
+  * 更换用户IP
+  * 多线程
+  */
+
+/**
   * 自定义PageProcessor
   */
 class CompanyProcessor extends PageProcessor{
@@ -58,7 +67,7 @@ class CompanyProcessor extends PageProcessor{
       page.addTargetRequests(page.getHtml.xpath("//div[@class='articleList']").links().regex(urlPost).all())
       page.addTargetRequests(page.getHtml().links().regex(urlList).all())
     }else{
-      //取得博客文章标题
+      //取得博客文章标题,必须加上get()否则报序列化异常
       page.putField("title", page.getHtml().xpath("//div[@class='articalTitle']/h2/text()").get())
       //若直接复制当前内容xpath会有许多null值，不同页面的id不同，一定要找出不同页面的相同地方
       //page.putField("title", page.getHtml().xpath("//*[@id=\"t_58ae76e80100to5q\"]/text()").get())
