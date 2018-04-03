@@ -61,10 +61,10 @@ object CSVtoOracle {
       writer.println(line)
     }*/
 
-    val df1=ss.read.option("header","true").csv("data/账号.csv")
+    val df1=ss.read.option("header","false").csv("data/sp_code.csv").distinct().toDF("SP_CODE")
     //println(df1.count())
     //df1.show(100,false)
-    df1.write.mode("append").jdbc(url,"AAAA",properties)
+    df1.write.mode("append").jdbc(url,"AAAAA",properties)
     //df1.show(50,false)
     //df1.take(10).foreach(println(_))
 /*    ss.read.option("header","true").csv("data/mobile_name.csv").createTempView("p")
