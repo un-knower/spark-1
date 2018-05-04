@@ -1,0 +1,8 @@
+1.设置并行度不会影响总内存
+2.计算集群可以使用的总核数：节点数量*executor数量*每个executor核数
+3.设置并行度为可用总核数的3倍
+4.每个核数的内存：executot-memory数量/设置的core
+3.任务运行大概总内存数：总核数*每个核的内存+spark.yarn.executor.memoryOverhead设置的数量*executor数量+设置的driver-memory数量/2
+5.任务运行总核数：(executor数量*每个executor核数)+1（driver核数默认为1）
+6.executot-memory的内存数为核数的2倍，即可实现总内存为总核数的2倍
+7.spark.yarn.executor.memoryOverhead可用来设置当需要保存数据cache时内存不溢出
